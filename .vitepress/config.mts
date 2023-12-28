@@ -1,6 +1,8 @@
 import { defineConfig } from 'vitepress'
 import { generateVersionRewrites, generateVersionSidebars, generateVersionSwitcher } from './data/versioning'
 
+import DocsSidebar from "./sidebars/docs"
+
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
   title: "Fabric Wiki",
@@ -8,6 +10,7 @@ export default defineConfig({
   rewrites: {
     ...generateVersionRewrites()
   },
+  cleanUrls: true,
   srcExclude: [
     "README.md",
     "LICENSE.md",
@@ -24,12 +27,17 @@ export default defineConfig({
       generateVersionSwitcher(),
     ],
 
+    i18nRouting: false,
+
     search: {
       provider: "local"
     },
 
+    outline: "deep",
+
     sidebar: {
       '/': [],
+      '/docs/': DocsSidebar,
       ...generateVersionSidebars()
     },
 
